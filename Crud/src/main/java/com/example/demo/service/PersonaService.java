@@ -1,0 +1,139 @@
+package com.example.demo.service;
+
+import java.util.List;
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
+
+import com.example.demo.Model.Datos;
+import com.example.demo.Model.Pais;
+import com.example.demo.dao.PersonaResponse;
+import com.example.demo.exceptions.DatosNoEncontradosException;
+import com.example.demo.exceptions.ResponseEntityExceptions;
+import com.example.demo.repository.PersonaRepository;
+import com.example.demo.repository.repo.PersonaRepo;
+import com.example.demo.rest.PersonaREST;
+
+@Service
+@Component
+public class PersonaService{
+	
+	@Autowired
+	private PersonaRepo repo;
+
+	public PersonaResponse create(Datos persona){
+	PersonaResponse nuevap = null;
+	try {
+		if(persona.getNombre() == null || persona.getNombre().isEmpty()) {
+			throw new DatosNoEncontradosException("400","ERROR NOMBRE NO PEDE QUEDAR VACIO");
+		}
+		if(persona.getApellido() == null || persona.getApellido().isEmpty()) {
+			throw new DatosNoEncontradosException("400","ERROR APELLIDO NO PEDE QUEDAR VACIO");
+		}
+		if(persona.getTelefono() == null || persona.getTelefono().isEmpty()) {
+			throw new DatosNoEncontradosException("400","ERROR TELEFONO NO PEDE QUEDAR VACIO");
+		}
+		if(persona.getTelefono() == null || persona.getTelefono().isEmpty()) {
+			throw new DatosNoEncontradosException("400","ERROR TELEFONO NO PEDE QUEDAR VACIO VACIO");
+		}
+		if(persona.getPais().getNombre() == null || persona.getPais().getNombre().isEmpty()) {
+			throw new DatosNoEncontradosException("400","ERROR NOMBRE DEL PAIS NO PEDE QUEDAR VACIO");
+		}
+		if(persona.getPais().getCodigo() == null || persona.getPais().getCodigo().isEmpty()) {
+			throw new DatosNoEncontradosException("400","ERROR CODIGO DEL PAIS NO PEDE QUEDAR VACIO");
+		}
+		Datos resp = repo.save(persona);
+		nuevap = new PersonaResponse();
+		nuevap.setId(resp.getId());
+		nuevap.setNombre(resp.getNombre());
+		nuevap.setApellido(resp.getApellido());
+		nuevap.setTelefono(resp.getTelefono());
+		nuevap.setNombrePais(resp.getPais().getNombre());
+		nuevap.setCodigoPais(resp.getPais().getCodigo());
+	}catch (DatosNoEncontradosException exc ) {
+		throw exc;
+	}catch (Exception e) {
+		e.printStackTrace();
+		throw new DatosNoEncontradosException("409", "Error en el servicio ingresar datos");
+	}
+			return nuevap;
+	}
+	
+	public  List<Datos> getAllPersonas(){
+		List<Datos> listar = null;
+		try {
+			listar = repo.getAllPersonas();
+			
+		}catch (DatosNoEncontradosException exc ) {
+			throw exc;
+		}catch (Exception e) {
+			e.printStackTrace();
+			throw new DatosNoEncontradosException("409", "Error en el servicio optener npersonas");
+		}
+		return listar;
+	}
+		
+	public void delete (Integer id) {
+		try {
+			if(id <= 0 || id.equals(null)) {
+			throw new DatosNoEncontradosException("ERROR EL ID NO EXISTE");
+		}
+			repo.delete(id);
+		}catch (DatosNoEncontradosException exc ) {
+			throw exc;
+		}catch (Exception e) {
+			e.printStackTrace();
+			throw new DatosNoEncontradosException("409", "Error en el servicio eliminar");
+	}
+	}
+	
+	public Optional<Datos> findById(Integer id) {
+		Optional<Datos> listp = null;
+		try {
+			if(id <= 0 || id.equals(null)) {
+				throw new DatosNoEncontradosException("400","ERROR debe ingresar numeros positivos");
+			}
+			listp = repo.findById(id);
+		}
+		catch (DatosNoEncontradosException exc ) {
+			throw exc;
+		}catch (Exception e) {
+			e.printStackTrace();
+			throw new DatosNoEncontradosException("409", "Error en el servicio buscar por ID");
+		}
+		return listp;
+	}
+	
+	public void edit(Datos persona) {
+		try {
+			if(persona.getNombre() == null || persona.getNombre().isEmpty()) {
+				throw new DatosNoEncontradosException("400","ERROR NOMBRE NO PEDE QUEDAR VACIO");
+			}
+			if(persona.getApellido() == null || persona.getApellido().isEmpty()) {
+				throw new DatosNoEncontradosException("400","ERROR APELLIDO NO PEDE QUEDAR VACIO");
+			}
+			if(persona.getTelefono() == null || persona.getTelefono().isEmpty()) {
+				throw new DatosNoEncontradosException("400","ERROR TELEFONO NO PEDE QUEDAR VACIO");
+			}
+			if(persona.getTelefono() == null || persona.getTelefono().isEmpty()) {
+				throw new DatosNoEncontradosException("400","ERROR TELEFONO NO PEDE QUEDAR VACIO VACIO");
+			}
+			if(persona.getPais().getNombre() == null || persona.getPais().getNombre().isEmpty()) {
+				throw new DatosNoEncontradosException("400","ERROR NOMBRE DEL PAIS NO PEDE QUEDAR VACIO");
+			}
+			if(persona.getPais().getCodigo() == null || persona.getPais().getCodigo().isEmpty()) {
+				throw new DatosNoEncontradosException("400","ERROR CODIGO DEL PAIS NO PEDE QUEDAR VACIO");
+			}
+			repo.save(persona);
+		}
+		catch (DatosNoEncontradosException exc ) {
+			throw exc;
+		}catch (Exception e) {
+			e.printStackTrace();
+			throw new DatosNoEncontradosException("409", "Error en el servicio editar");
+	}
+}
+}
