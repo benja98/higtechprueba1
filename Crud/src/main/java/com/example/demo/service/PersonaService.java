@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import com.example.demo.Model.Datos;
 import com.example.demo.Model.Pais;
 import com.example.demo.dao.PersonaResponse;
+import com.example.demo.dto.DatosDto;
 import com.example.demo.exceptions.DatosNoEncontradosException;
 import com.example.demo.exceptions.ResponseEntityExceptions;
 import com.example.demo.repository.PersonaRepository;
@@ -20,7 +21,6 @@ import com.example.demo.rest.PersonaREST;
 @Service
 @Component
 public class PersonaService{
-	
 	@Autowired
 	private PersonaRepo repo;
 
@@ -61,6 +61,55 @@ public class PersonaService{
 	}
 			return nuevap;
 	}
+	
+	
+	public PersonaResponse create(DatosDto dto){
+	PersonaResponse nuevap = null;
+	try {
+		if(dto.getNombre() == null || dto.getNombre().isEmpty()) {
+			throw new DatosNoEncontradosException("400","ERROR NOMBRE NO PEDE QUEDAR VACIO");
+		}
+		if(dto.getApellido() == null || dto.getApellido().isEmpty()) {
+			throw new DatosNoEncontradosException("400","ERROR APELLIDO NO PEDE QUEDAR VACIO");
+		}
+		if(dto.getTelefono() == null || dto.getTelefono().isEmpty()) {
+			throw new DatosNoEncontradosException("400","ERROR TELEFONO NO PEDE QUEDAR VACIO");
+		}
+		if(dto.getTelefono() == null || dto.getTelefono().isEmpty()) {
+			throw new DatosNoEncontradosException("400","ERROR TELEFONO NO PEDE QUEDAR VACIO VACIO");
+		}
+		if(dto.getIdPais() == null || dto.getIdPais().equals(0)) {
+			throw new DatosNoEncontradosException("400","ERROR NOMBRE DEL PAIS NO PEDE QUEDAR VACIO");
+		}
+		Datos nuevos = new Datos();
+		Pais paisnew = new Pais();
+		
+		nuevos.setNombre(dto.getNombre());
+		nuevos.setApellido(dto.getApellido());
+		nuevos.setTelefono(dto.getTelefono());
+		paisnew.setId(dto.getIdPais());
+		nuevos.setPais(paisnew);
+		
+		Datos resp = repo.save(nuevos);
+		nuevap = new PersonaResponse();
+		nuevap.setId(resp.getId());
+		nuevap.setNombre(resp.getNombre());
+		nuevap.setApellido(resp.getApellido());
+		nuevap.setTelefono(resp.getTelefono());
+		nuevap.setNombrePais(resp.getPais().getNombre());
+		nuevap.setCodigoPais(resp.getPais().getCodigo());
+	}catch (DatosNoEncontradosException exc ) {
+		throw exc;
+	}catch (Exception e) {
+		e.printStackTrace();
+		throw new DatosNoEncontradosException("409", "Error en el servicio ingresar datos");
+	}
+			return nuevap;
+	}
+	
+	
+	
+	
 	
 	public  List<Datos> getAllPersonas(){
 		List<Datos> listar = null;

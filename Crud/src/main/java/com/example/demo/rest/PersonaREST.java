@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import com.example.demo.Model.Datos;
 import com.example.demo.dao.PersonaResponse;
+import com.example.demo.dto.DatosDto;
 import com.example.demo.exceptions.DatosNoEncontradosException;
 import com.example.demo.exceptions.ResponseEntityExceptions;
 import com.example.demo.service.PersonaService;
@@ -43,6 +44,23 @@ public class PersonaREST{
 		}
 		 return response;
 	}	
+	
+	@PostMapping(value = "/datos1")																					
+	private ResponseEntity<?> guardar(@RequestBody DatosDto dto){
+		PersonaResponse pservice  = null;
+		ResponseEntity<?> response = null;																
+		try {
+			pservice = personaService.create(dto);
+			response = responseExceptions.createOkResponse(pservice, "0", "ok");
+		}catch (DatosNoEncontradosException e) {
+			response = responseExceptions.createFailResponse(null, e.getCod(), e.getMessage());
+		}catch (Exception e) {
+			e.printStackTrace();
+			response = responseExceptions.createFailResponse(null, "409","error al ingresar datos");
+		}
+		 return response;
+	}
+	
 	
 	@GetMapping																										
 	private ResponseEntity<List<PersonaResponse>> listarTodasLasPersona (){	

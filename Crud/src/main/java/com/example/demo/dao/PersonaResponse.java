@@ -4,6 +4,10 @@ import java.io.Serializable;
 
 public class PersonaResponse implements Serializable{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private Integer id;
 	private String nombre;
 	private String apellido;
@@ -43,9 +47,6 @@ public class PersonaResponse implements Serializable{
 	}
 	public String getCodigoPais() {
 		return codigoPais;
-		
-		
-		
 	}
 	public void setCodigoPais(String codigoPais) {
 		this.codigoPais = codigoPais;

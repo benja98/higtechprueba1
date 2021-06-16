@@ -25,8 +25,8 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
  */
 @Entity
 @Table(name = "pais")
-@JsonIgnoreProperties(value={ "datosList", "hibernateLazyInitializer",
-}, allowSetters = true)
+//@JsonIgnoreProperties(value={ "datosList", "hibernateLazyInitializer",
+//}, allowSetters = true)
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Pais.findAll", query = "SELECT p FROM Pais p")
