@@ -3,6 +3,8 @@ package com.example.demo.service;
 import java.util.List;
 import java.util.Optional;
 
+import javax.persistence.Id;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
@@ -62,7 +64,6 @@ public class PersonaService{
 			return nuevap;
 	}
 	
-	
 	public PersonaResponse create(DatosDto dto){
 	PersonaResponse nuevap = null;
 	try {
@@ -106,11 +107,7 @@ public class PersonaService{
 	}
 			return nuevap;
 	}
-	
-	
-	
-	
-	
+		
 	public  List<Datos> getAllPersonas(){
 		List<Datos> listar = null;
 		try {
@@ -177,6 +174,46 @@ public class PersonaService{
 				throw new DatosNoEncontradosException("400","ERROR CODIGO DEL PAIS NO PEDE QUEDAR VACIO");
 			}
 			repo.save(persona);
+		}
+		catch (DatosNoEncontradosException exc ) {
+			throw exc;
+		}catch (Exception e) {
+			e.printStackTrace();
+			throw new DatosNoEncontradosException("409", "Error en el servicio editar");
+	}
+}
+	
+	public void edit(DatosDto dto) {
+		repo.findById(dto.getId());
+		try {
+			if(dto.getId() <= 0 || dto.getId() == null) {
+				throw new DatosNoEncontradosException("400","ID NO VALIDO ");
+			}
+			if(dto.getNombre() != null || dto.getNombre().isEmpty()) {
+				throw new DatosNoEncontradosException("400","ERROR NOMBRE ESTA VACIO");
+			}
+			if(dto.getApellido() != null || dto.getApellido().isEmpty()) {
+				throw new DatosNoEncontradosException("400","ERROR APELLIDO ESTA VACIO");
+			}
+			if(dto.getTelefono() != null || dto.getTelefono().isEmpty()) {
+				throw new DatosNoEncontradosException("400","ERROR TELEFONO ESTA VACIO");
+			}
+			if(dto.getTelefono() != null || dto.getTelefono().isEmpty()) {
+				throw new DatosNoEncontradosException("400","ERROR TELEFONO ESTA VACIO");
+			}
+			if(dto.getIdPais() != null || dto.getIdPais().equals(0)) {
+				throw new DatosNoEncontradosException("400","ERROR NOMBRE DEL PAIS NO ESTA VACIO");
+			}
+			Datos editados = new Datos();
+			Pais paisnew = new Pais();
+			editados.setId(dto.getId());
+			editados.setNombre(dto.getNombre());
+			editados.setApellido(dto.getApellido());
+			editados.setTelefono(dto.getTelefono());
+			paisnew.setId(dto.getIdPais());
+			editados.setPais(paisnew);
+			
+			repo.save(editados);
 		}
 		catch (DatosNoEncontradosException exc ) {
 			throw exc;
