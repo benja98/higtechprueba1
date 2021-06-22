@@ -183,37 +183,24 @@ public class PersonaService{
 	}
 }
 	
-	public void edit(DatosDto dto) {
-		repo.findById(dto.getId());
+	public Optional<Datos> edit(DatosDto dto) {
+		Optional<Datos> edit = null;
+		edit = repo.findById(dto.getId());
 		try {
-			if(dto.getId() <= 0 || dto.getId() == null) {
-				throw new DatosNoEncontradosException("400","ID NO VALIDO ");
+			if(dto.getNombre() != null && dto.getNombre().isEmpty()) {
+				dto.setNombre(dto.getNombre());
+				dto.setNombre(dto.getNombre());
 			}
-			if(dto.getNombre() != null || dto.getNombre().isEmpty()) {
-				throw new DatosNoEncontradosException("400","ERROR NOMBRE ESTA VACIO");
+			if(dto.getApellido() != null && dto.getApellido().isEmpty()) {
+				dto.setApellido(dto.getApellido());
 			}
-			if(dto.getApellido() != null || dto.getApellido().isEmpty()) {
-				throw new DatosNoEncontradosException("400","ERROR APELLIDO ESTA VACIO");
+			if(dto.getTelefono() != null && dto.getTelefono().isEmpty()) {
+				dto.setTelefono(dto.getTelefono());
 			}
-			if(dto.getTelefono() != null || dto.getTelefono().isEmpty()) {
-				throw new DatosNoEncontradosException("400","ERROR TELEFONO ESTA VACIO");
+			if(dto.getIdPais() != null && dto.getIdPais().equals(0)) {
+				dto.setId(dto.getIdPais());
 			}
-			if(dto.getTelefono() != null || dto.getTelefono().isEmpty()) {
-				throw new DatosNoEncontradosException("400","ERROR TELEFONO ESTA VACIO");
-			}
-			if(dto.getIdPais() != null || dto.getIdPais().equals(0)) {
-				throw new DatosNoEncontradosException("400","ERROR NOMBRE DEL PAIS NO ESTA VACIO");
-			}
-			Datos editados = new Datos();
-			Pais paisnew = new Pais();
-			editados.setId(dto.getId());
-			editados.setNombre(dto.getNombre());
-			editados.setApellido(dto.getApellido());
-			editados.setTelefono(dto.getTelefono());
-			paisnew.setId(dto.getIdPais());
-			editados.setPais(paisnew);
-			
-			repo.save(editados);
+			edit = repo.save(dto);
 		}
 		catch (DatosNoEncontradosException exc ) {
 			throw exc;
