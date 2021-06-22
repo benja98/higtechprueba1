@@ -183,30 +183,32 @@ public class PersonaService{
 	}
 }
 	
-	public Optional<Datos> edit(DatosDto dto) {
-		Optional<Datos> edit = null;
-		edit = repo.findById(dto.getId());
+	public Datos edit(DatosDto dto) {
+		Optional<Datos> edit = repo.findById(dto.getId());
+		Datos editados = null;
 		try {
-			if(dto.getNombre() != null && dto.getNombre().isEmpty()) {
-				dto.setNombre(dto.getNombre());
-				dto.setNombre(dto.getNombre());
+			if(dto.getNombre() != null && !dto.getNombre().isEmpty()) {
+				edit.get().setNombre(dto.getNombre());
 			}
-			if(dto.getApellido() != null && dto.getApellido().isEmpty()) {
-				dto.setApellido(dto.getApellido());
+			if(dto.getApellido() != null && !dto.getApellido().isEmpty()) {
+				edit.get().setApellido(dto.getApellido());
 			}
-			if(dto.getTelefono() != null && dto.getTelefono().isEmpty()) {
-				dto.setTelefono(dto.getTelefono());
+			if(dto.getTelefono() != null && !dto.getTelefono().isEmpty()) {
+				edit.get().setTelefono(dto.getTelefono());
 			}
-			if(dto.getIdPais() != null && dto.getIdPais().equals(0)) {
-				dto.setId(dto.getIdPais());
+			if(dto.getIdPais() != null && !dto.getIdPais().equals(0)) {
+				Pais nuevop = new Pais();
+				nuevop.setId(dto.getIdPais());
+				edit.get().setPais(nuevop);
 			}
-			edit = repo.save(dto);
+			editados = repo.save(edit.get());
 		}
 		catch (DatosNoEncontradosException exc ) {
 			throw exc;
-		}catch (Exception e) {
+		}catch (Exception e){
 			e.printStackTrace();
 			throw new DatosNoEncontradosException("409", "Error en el servicio editar");
 	}
+		return editados;
 }
 }
