@@ -3,10 +3,8 @@ package com.example.demo.service;
 import java.util.List;
 import java.util.Optional;
 
-import javax.persistence.Id;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
+import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
@@ -15,37 +13,40 @@ import com.example.demo.Model.Pais;
 import com.example.demo.dao.PersonaResponse;
 import com.example.demo.dto.DatosDto;
 import com.example.demo.exceptions.DatosNoEncontradosException;
-import com.example.demo.exceptions.ResponseEntityExceptions;
-import com.example.demo.repository.PersonaRepository;
 import com.example.demo.repository.repo.PersonaRepo;
-import com.example.demo.rest.PersonaREST;
+
+import commons.AppConstans;
 
 @Service
 @Component
 public class PersonaService{
+	@Autowired
+	private Environment env;
 	@Autowired
 	private PersonaRepo repo;
 
 	public PersonaResponse create(Datos persona){
 	PersonaResponse nuevap = null;
 	try {
-		if(persona.getNombre() == null || persona.getNombre().isEmpty()) {
-			throw new DatosNoEncontradosException("400","ERROR NOMBRE NO PEDE QUEDAR VACIO");
+		if(persona.getNombre() == null || persona.getNombre().isEmpty()) {		
+			throw new DatosNoEncontradosException(env.getProperty(AppConstans.ERROR_CAMPOVACIO_COD),
+													env.getProperty(AppConstans.ERROR_NOMBRE_MSG));
 		}
 		if(persona.getApellido() == null || persona.getApellido().isEmpty()) {
-			throw new DatosNoEncontradosException("400","ERROR APELLIDO NO PEDE QUEDAR VACIO");
+			throw new DatosNoEncontradosException(env.getProperty(AppConstans.ERROR_CAMPOVACIO_COD),
+													env.getProperty(AppConstans.ERROR_APELLIDO_MSG));
 		}
 		if(persona.getTelefono() == null || persona.getTelefono().isEmpty()) {
-			throw new DatosNoEncontradosException("400","ERROR TELEFONO NO PEDE QUEDAR VACIO");
-		}
-		if(persona.getTelefono() == null || persona.getTelefono().isEmpty()) {
-			throw new DatosNoEncontradosException("400","ERROR TELEFONO NO PEDE QUEDAR VACIO VACIO");
+			throw new DatosNoEncontradosException(env.getProperty(AppConstans.ERROR_CAMPOVACIO_COD),
+													env.getProperty(AppConstans.ERROR_TELEFONO_MSG));
 		}
 		if(persona.getPais().getNombre() == null || persona.getPais().getNombre().isEmpty()) {
-			throw new DatosNoEncontradosException("400","ERROR NOMBRE DEL PAIS NO PEDE QUEDAR VACIO");
+			throw new DatosNoEncontradosException(env.getProperty(AppConstans.ERROR_CAMPOVACIO_COD),
+													env.getProperty(AppConstans.ERROR_NOMBREPAIS_MSG));
 		}
 		if(persona.getPais().getCodigo() == null || persona.getPais().getCodigo().isEmpty()) {
-			throw new DatosNoEncontradosException("400","ERROR CODIGO DEL PAIS NO PEDE QUEDAR VACIO");
+			throw new DatosNoEncontradosException(env.getProperty(AppConstans.ERROR_CAMPOVACIO_COD),
+													env.getProperty(AppConstans.ERROR_CODIGOPAIS_MSG));
 		}
 		Datos resp = repo.save(persona);
 		nuevap = new PersonaResponse();
@@ -59,7 +60,8 @@ public class PersonaService{
 		throw exc;
 	}catch (Exception e) {
 		e.printStackTrace();
-		throw new DatosNoEncontradosException("409", "Error en el servicio ingresar datos");
+		throw new DatosNoEncontradosException(env.getProperty(AppConstans.ERROR_SERVICIOSAVE_COD),
+												env.getProperty(AppConstans.ERROR_SERVICIOSAVE_MSG));
 	}
 			return nuevap;
 	}
@@ -68,19 +70,20 @@ public class PersonaService{
 	PersonaResponse nuevap = null;
 	try {
 		if(dto.getNombre() == null || dto.getNombre().isEmpty()) {
-			throw new DatosNoEncontradosException("400","ERROR NOMBRE NO PEDE QUEDAR VACIO");
+			throw new DatosNoEncontradosException(env.getProperty(AppConstans.ERROR_CAMPOVACIO_COD),
+													env.getProperty(AppConstans.ERROR_NOMBRE_MSG));
 		}
 		if(dto.getApellido() == null || dto.getApellido().isEmpty()) {
-			throw new DatosNoEncontradosException("400","ERROR APELLIDO NO PEDE QUEDAR VACIO");
+			throw new DatosNoEncontradosException(env.getProperty(AppConstans.ERROR_CAMPOVACIO_COD),
+													env.getProperty(AppConstans.ERROR_APELLIDO_MSG));
 		}
 		if(dto.getTelefono() == null || dto.getTelefono().isEmpty()) {
-			throw new DatosNoEncontradosException("400","ERROR TELEFONO NO PEDE QUEDAR VACIO");
-		}
-		if(dto.getTelefono() == null || dto.getTelefono().isEmpty()) {
-			throw new DatosNoEncontradosException("400","ERROR TELEFONO NO PEDE QUEDAR VACIO VACIO");
+			throw new DatosNoEncontradosException(env.getProperty(AppConstans.ERROR_CAMPOVACIO_COD),
+													env.getProperty(AppConstans.ERROR_TELEFONO_MSG));
 		}
 		if(dto.getIdPais() == null || dto.getIdPais().equals(0)) {
-			throw new DatosNoEncontradosException("400","ERROR NOMBRE DEL PAIS NO PEDE QUEDAR VACIO");
+			throw new DatosNoEncontradosException(env.getProperty(AppConstans.ERROR_CAMPOVACIO_COD),
+													env.getProperty(AppConstans.ERROR_IDPAIS_MSG));
 		}
 		Datos nuevos = new Datos();
 		Pais paisnew = new Pais();
@@ -103,7 +106,8 @@ public class PersonaService{
 		throw exc;
 	}catch (Exception e) {
 		e.printStackTrace();
-		throw new DatosNoEncontradosException("409", "Error en el servicio ingresar datos");
+		throw new DatosNoEncontradosException(env.getProperty(AppConstans.ERROR_SERVICIOSAVE_COD),
+												env.getProperty(AppConstans.ERROR_SERVICIOSAVE_MSG));
 	}
 			return nuevap;
 	}
@@ -117,7 +121,8 @@ public class PersonaService{
 			throw exc;
 		}catch (Exception e) {
 			e.printStackTrace();
-			throw new DatosNoEncontradosException("409", "Error en el servicio optener npersonas");
+			throw new DatosNoEncontradosException(env.getProperty(AppConstans.ERROR_SERVICIOSAVE_COD),
+													env.getProperty(AppConstans.ERROR_SERVICIOLIST_MSG));
 		}
 		return listar;
 	}
@@ -125,14 +130,16 @@ public class PersonaService{
 	public void delete (Integer id) {
 		try {
 			if(id <= 0 || id.equals(null)) {
-			throw new DatosNoEncontradosException("ERROR EL ID NO EXISTE");
+				throw new DatosNoEncontradosException(env.getProperty(AppConstans.ERROR_CAMPOVACIO_COD),
+														env.getProperty(AppConstans.ERROR_IDNULL_MSG));
 		}
 			repo.delete(id);
 		}catch (DatosNoEncontradosException exc ) {
 			throw exc;
 		}catch (Exception e) {
 			e.printStackTrace();
-			throw new DatosNoEncontradosException("409", "Error en el servicio eliminar");
+			throw new DatosNoEncontradosException(env.getProperty(AppConstans.ERROR_SERVICIOSAVE_COD),
+													env.getProperty(AppConstans.ERROR_SERVICIODELETE_MSG));
 	}
 	}
 	
@@ -140,15 +147,22 @@ public class PersonaService{
 		Optional<Datos> listp = null;
 		try {
 			if(id <= 0 || id.equals(null)) {
-				throw new DatosNoEncontradosException("400","ERROR debe ingresar numeros positivos");
+				throw new DatosNoEncontradosException(env.getProperty(AppConstans.ERROR_CAMPOVACIO_COD),
+														env.getProperty(AppConstans.ERROR_NUMPOSITIVOS_MSG));
 			}
 			listp = repo.findById(id);
+			if(listp == null ) {
+				//TERMINAR 156
+				throw new DatosNoEncontradosException(env.getProperty(AppConstans.ERROR_CAMPOVACIO_COD),
+						env.getProperty(AppConstans.ERROR_NUMPOSITIVOS_MSG));
+			}
 		}
 		catch (DatosNoEncontradosException exc ) {
 			throw exc;
 		}catch (Exception e) {
 			e.printStackTrace();
-			throw new DatosNoEncontradosException("409", "Error en el servicio buscar por ID");
+			throw new DatosNoEncontradosException(env.getProperty(AppConstans.ERROR_SERVICIOSAVE_COD),
+													env.getProperty(AppConstans.ERROR_SERVICIOBISCARID_MSG));
 		}
 		return listp;
 	}
@@ -156,22 +170,24 @@ public class PersonaService{
 	public void edit(Datos persona) {
 		try {
 			if(persona.getNombre() == null || persona.getNombre().isEmpty()) {
-				throw new DatosNoEncontradosException("400","ERROR NOMBRE NO PEDE QUEDAR VACIO");
+				throw new DatosNoEncontradosException(env.getProperty(AppConstans.ERROR_CAMPOVACIO_COD),
+														env.getProperty(AppConstans.ERROR_NOMBRE_MSG));
 			}
 			if(persona.getApellido() == null || persona.getApellido().isEmpty()) {
-				throw new DatosNoEncontradosException("400","ERROR APELLIDO NO PEDE QUEDAR VACIO");
+				throw new DatosNoEncontradosException(env.getProperty(AppConstans.ERROR_CAMPOVACIO_COD),
+														env.getProperty(AppConstans.ERROR_APELLIDO_MSG));
 			}
 			if(persona.getTelefono() == null || persona.getTelefono().isEmpty()) {
-				throw new DatosNoEncontradosException("400","ERROR TELEFONO NO PEDE QUEDAR VACIO");
-			}
-			if(persona.getTelefono() == null || persona.getTelefono().isEmpty()) {
-				throw new DatosNoEncontradosException("400","ERROR TELEFONO NO PEDE QUEDAR VACIO VACIO");
+				throw new DatosNoEncontradosException(env.getProperty(AppConstans.ERROR_CAMPOVACIO_COD),
+														env.getProperty(AppConstans.ERROR_TELEFONO_MSG));
 			}
 			if(persona.getPais().getNombre() == null || persona.getPais().getNombre().isEmpty()) {
-				throw new DatosNoEncontradosException("400","ERROR NOMBRE DEL PAIS NO PEDE QUEDAR VACIO");
+				throw new DatosNoEncontradosException(env.getProperty(AppConstans.ERROR_CAMPOVACIO_COD),
+														env.getProperty(AppConstans.ERROR_NOMBREPAIS_MSG));
 			}
 			if(persona.getPais().getCodigo() == null || persona.getPais().getCodigo().isEmpty()) {
-				throw new DatosNoEncontradosException("400","ERROR CODIGO DEL PAIS NO PEDE QUEDAR VACIO");
+				throw new DatosNoEncontradosException(env.getProperty(AppConstans.ERROR_CAMPOVACIO_COD),
+														env.getProperty(AppConstans.ERROR_CODIGOPAIS_MSG));
 			}
 			repo.save(persona);
 		}
@@ -179,7 +195,8 @@ public class PersonaService{
 			throw exc;
 		}catch (Exception e) {
 			e.printStackTrace();
-			throw new DatosNoEncontradosException("409", "Error en el servicio editar");
+			throw new DatosNoEncontradosException(env.getProperty(AppConstans.ERROR_SERVICIOSAVE_COD),
+													env.getProperty(AppConstans.ERROR_SERVICIOEDIT_MSG));
 	}
 }
 	
@@ -207,7 +224,8 @@ public class PersonaService{
 			throw exc;
 		}catch (Exception e){
 			e.printStackTrace();
-			throw new DatosNoEncontradosException("409", "Error en el servicio editar");
+			throw new DatosNoEncontradosException(env.getProperty(AppConstans.ERROR_SERVICIOSAVE_COD),
+														env.getProperty(AppConstans.ERROR_SERVICIOEDIT_MSG));
 	}
 		return editados;
 }

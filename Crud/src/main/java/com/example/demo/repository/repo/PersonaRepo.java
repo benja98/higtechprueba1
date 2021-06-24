@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Component;
 
 import com.example.demo.Model.Datos;
@@ -11,8 +12,12 @@ import com.example.demo.dto.DatosDto;
 import com.example.demo.exceptions.DatosNoEncontradosException;
 import com.example.demo.repository.PersonaRepository;
 
+import commons.AppConstans;
+
 @Component
 public class PersonaRepo {
+	@Autowired
+	private Environment env;
 	@Autowired
 	private PersonaRepository personaResporitory;
 	
@@ -21,7 +26,8 @@ public class PersonaRepo {
 		try {
 			guardar = personaResporitory.save(datosnuevo);
 		}catch (Exception e) {
-			throw new DatosNoEncontradosException("409", " ERROR AL GUARDAR ");
+			throw new DatosNoEncontradosException(env.getProperty(AppConstans.ERROR_SERVICIOSAVE_COD),
+													env.getProperty(AppConstans.ERROR_REPOSAVE_MSG));
 		}
 		return guardar;
 	}
@@ -31,7 +37,8 @@ public class PersonaRepo {
 		try {
 			listid = personaResporitory.findById(id);
 		}catch (Exception e) {
-			throw new DatosNoEncontradosException("409", "ERROR AL EXTRAR DATOS POR ID ");
+			throw new DatosNoEncontradosException(env.getProperty(AppConstans.ERROR_SERVICIOSAVE_COD),
+													env.getProperty(AppConstans.ERROR_REPOLISTID_MSG));
 		}
 		return listid;
 	}
@@ -41,7 +48,8 @@ public class PersonaRepo {
 		try {
 			listar = personaResporitory.findAll();
 		}catch (Exception e) {
-			throw new DatosNoEncontradosException("409", " ERROR AL LISTAR ");
+			throw new DatosNoEncontradosException(env.getProperty(AppConstans.ERROR_SERVICIOSAVE_COD),
+													env.getProperty(AppConstans.ERROR_REPOLIST_MSG));
 		}
 		return listar;
 	}
@@ -50,7 +58,8 @@ public class PersonaRepo {
 		try {
 			personaResporitory.deleteById(id);
 		}catch (Exception e) {
-			throw new DatosNoEncontradosException("409", " ERROR AL ELIMINAR ");
+			throw new DatosNoEncontradosException(env.getProperty(AppConstans.ERROR_SERVICIOSAVE_COD),
+													env.getProperty(AppConstans.ERROR_REPODELETE_MSG));
 		}
 	}
 	
@@ -58,7 +67,8 @@ public class PersonaRepo {
 		try {
 			personaResporitory.save(persona);
 		}catch (Exception e) {
-			throw new DatosNoEncontradosException("409", " ERROR AL ELIMINAR ");
+			throw new DatosNoEncontradosException(env.getProperty(AppConstans.ERROR_SERVICIOSAVE_COD),
+													env.getProperty(AppConstans.ERROR_REPOEDIT_MSG));
 		}
 	}
 
