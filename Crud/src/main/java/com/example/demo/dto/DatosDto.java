@@ -11,19 +11,65 @@ public class DatosDto implements Serializable{
 	private String apellido;
 	private String telefono;
 	private Integer idPais;
+	private Integer idBanco;
+	private Integer idPersona;
+	private String tipo_tarjeta;
+	private String monto;
+	
+	public Integer getIdBanco() {
+		return idBanco;
+	}
 	
 	public DatosDto() {
 		super();
 	}
 
-	public DatosDto(Integer id, String nombre, String apellido, String telefono, Integer idPais) {
+	public DatosDto(Integer id, String nombre, String apellido, String telefono, Integer idPais, Integer idBanco,
+			Integer idPersona, String tipo_tarjeta, String monto) {
 		super();
 		this.id = id;
 		this.nombre = nombre;
 		this.apellido = apellido;
 		this.telefono = telefono;
 		this.idPais = idPais;
+		this.idBanco = idBanco;
+		this.idPersona = idPersona;
+		this.tipo_tarjeta = tipo_tarjeta;
+		this.monto = monto;
 	}
+
+	public void setIdBanco(Integer idBanco) {
+		this.idBanco = idBanco;
+	}
+
+	public Integer getIdPersona() {
+		return idPersona;
+	}
+
+	public void setIdPersona(Integer idPersona) {
+		this.idPersona = idPersona;
+	}
+
+	public String getTipo_tarjeta() {
+		return tipo_tarjeta;
+	}
+
+	public void setTipo_tarjeta(String tipo_tarjeta) {
+		this.tipo_tarjeta = tipo_tarjeta;
+	}
+
+	public String getMonto() {
+		return monto;
+	}
+
+	public void setMonto(String monto) {
+		this.monto = monto;
+	}
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
+
 
 	public Integer getId() {
 		return id;

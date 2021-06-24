@@ -95,6 +95,7 @@ public class PersonaService{
 		nuevos.setPais(paisnew);
 		
 		Datos resp = repo.save(nuevos);
+		resp.getId()
 		nuevap = new PersonaResponse();
 		nuevap.setId(resp.getId());
 		nuevap.setNombre(resp.getNombre());
