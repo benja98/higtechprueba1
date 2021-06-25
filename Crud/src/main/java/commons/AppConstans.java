@@ -14,6 +14,8 @@ public class AppConstans {
 	public static final String ERROR_IDPAIS_MSG= "mensaje.idpais.vacio";
 	public static final String ERROR_IDNULL_MSG= "mensaje.id.noexiste";
 	public static final String ERROR_NUMPOSITIVOS_MSG= "mensaje.numeros.positivos";
+	public static final String ERROR_TIPOTARG_MSG= "mensaje.tipotarjeta.vacio";
+	public static final String ERROR_SALDO_MSG= "mensaje.saldo.vacio";
 	//CODIGOS DE ERRORES
 	public static final String ERROR_SERVICIOSAVE_COD= "cod.servicio.ingresar";
 	public static final String ERROR_CAMPOVACIO_COD= "cod.campo.vacio";

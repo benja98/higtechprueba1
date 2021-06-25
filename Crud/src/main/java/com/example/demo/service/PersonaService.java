@@ -8,6 +8,7 @@ import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
+import com.example.demo.Model.Banco;
 import com.example.demo.Model.Datos;
 import com.example.demo.Model.Pais;
 import com.example.demo.dao.PersonaResponse;
@@ -85,6 +86,16 @@ public class PersonaService{
 			throw new DatosNoEncontradosException(env.getProperty(AppConstans.ERROR_CAMPOVACIO_COD),
 													env.getProperty(AppConstans.ERROR_IDPAIS_MSG));
 		}
+		if(dto.getTipo_tarjeta() == null || dto.getTipo_tarjeta().isEmpty()) {
+			throw new DatosNoEncontradosException(env.getProperty(AppConstans.ERROR_CAMPOVACIO_COD),
+													env.getProperty(AppConstans.ERROR_TIPOTARG_MSG));
+		}
+		if(dto.getSaldo() == null || dto.getSaldo().isEmpty()) {
+			throw new DatosNoEncontradosException(env.getProperty(AppConstans.ERROR_CAMPOVACIO_COD),
+													env.getProperty(AppConstans.ERROR_SALDO_MSG));
+		}
+		
+		Banco datosb = new Banco();
 		Datos nuevos = new Datos();
 		Pais paisnew = new Pais();
 		
@@ -93,9 +104,12 @@ public class PersonaService{
 		nuevos.setTelefono(dto.getTelefono());
 		paisnew.setId(dto.getIdPais());
 		nuevos.setPais(paisnew);
+		datosb.setTipoTarjeta(dto.getTipo_tarjeta());
+		datosb.setSaldo(dto.getSaldo());
+		
 		
 		Datos resp = repo.save(nuevos);
-		resp.getId()
+		resp.getId();
 		nuevap = new PersonaResponse();
 		nuevap.setId(resp.getId());
 		nuevap.setNombre(resp.getNombre());

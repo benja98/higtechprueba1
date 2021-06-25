@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.client.RestTemplate;
+
 import com.example.demo.Model.Datos;
 import com.example.demo.dao.PersonaResponse;
 import com.example.demo.dto.DatosDto;
@@ -34,6 +36,8 @@ public class PersonaREST{
 	private PersonaService personaService;	
 	@Autowired																					
 	ResponseEntityExceptions responseExceptions;
+	@Autowired
+	private RestTemplate clienteRest;
 	
 	@PostMapping(value = "/datos")																					
 	private ResponseEntity<?> guardar(@RequestBody Datos datos){
@@ -50,7 +54,7 @@ public class PersonaREST{
 			response = responseExceptions.createFailResponse(null, env.getProperty(AppConstans.ERROR_SERVICIOSAVE_COD), 
 																		env.getProperty(AppConstans.ERROR_INGRESAR_PERSONA));
 		}
-		 return response;
+		 return clienteRest.getForObject("http//localhost:9001/api/persona/datos",ResponseEntity.class);
 	}	
 	
 	@PostMapping(value = "/datos1")																					

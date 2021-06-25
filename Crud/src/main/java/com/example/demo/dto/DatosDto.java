@@ -14,7 +14,7 @@ public class DatosDto implements Serializable{
 	private Integer idBanco;
 	private Integer idPersona;
 	private String tipo_tarjeta;
-	private String monto;
+	private String saldo;
 	
 	public Integer getIdBanco() {
 		return idBanco;
@@ -35,7 +35,7 @@ public class DatosDto implements Serializable{
 		this.idBanco = idBanco;
 		this.idPersona = idPersona;
 		this.tipo_tarjeta = tipo_tarjeta;
-		this.monto = monto;
+		this.saldo = saldo;
 	}
 
 	public void setIdBanco(Integer idBanco) {
@@ -58,12 +58,12 @@ public class DatosDto implements Serializable{
 		this.tipo_tarjeta = tipo_tarjeta;
 	}
 
-	public String getMonto() {
-		return monto;
+	public String getSaldo() {
+		return saldo;
 	}
 
-	public void setMonto(String monto) {
-		this.monto = monto;
+	public void setSaldo(String saldo) {
+		this.saldo = saldo;
 	}
 
 	public static long getSerialversionuid() {
