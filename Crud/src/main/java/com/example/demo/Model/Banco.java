@@ -1,5 +1,7 @@
 package com.example.demo.Model;
 
+import java.io.Serializable;
+
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -23,7 +25,7 @@ import javax.persistence.Table;
 //    , @NamedQuery(name = "TarjetaDeCredito.findByTipoTarjeta", query = "SELECT t FROM TarjetaDeCredito t WHERE t.tipoTarjeta = :tipoTarjeta")
 //    , @NamedQuery(name = "TarjetaDeCredito.findBySaldo", query = "SELECT t FROM TarjetaDeCredito t WHERE t.saldo = :saldo")})
 
-public class Banco {
+public class Banco implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
@@ -33,72 +35,58 @@ public class Banco {
     private String tipoTarjeta;
     @Column(name = "saldo")
     private String saldo;
-    @JoinColumn(name = "idpersona", referencedColumnName = "id")
+    
     @ManyToOne
+    @JoinColumn(name = "idpersona", referencedColumnName = "id") 
     private Datos idpersona;
 
-    public Banco() {
-    }
+	public Banco(Integer id, String tipoTarjeta, String saldo, Datos idpersona) {
+		super();
+		this.id = id;
+		this.tipoTarjeta = tipoTarjeta;
+		this.saldo = saldo;
+		this.idpersona = idpersona;
+	}
 
-    public Banco(Integer id) {
-        this.id = id;
-    }
+	public Banco() {
+		super();
+	}
 
-    public Integer getId() {
-        return id;
-    }
+	public Integer getId() {
+		return id;
+	}
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
+	public void setId(Integer id) {
+		this.id = id;
+	}
 
-    public String getTipoTarjeta() {
-        return tipoTarjeta;
-    }
+	public String getTipoTarjeta() {
+		return tipoTarjeta;
+	}
 
-    public void setTipoTarjeta(String tipoTarjeta) {
-        this.tipoTarjeta = tipoTarjeta;
-    }
+	public void setTipoTarjeta(String tipoTarjeta) {
+		this.tipoTarjeta = tipoTarjeta;
+	}
 
-    public String getSaldo() {
-        return saldo;
-    }
+	public String getSaldo() {
+		return saldo;
+	}
 
-    public void setSaldo(String saldo) {
-        this.saldo = saldo;
-    }
+	public void setSaldo(String saldo) {
+		this.saldo = saldo;
+	}
 
-    public Datos getIdpersona() {
-        return idpersona;
-    }
+	public Datos getIdpersona() {
+		return idpersona;
+	}
 
-    public void setIdpersona(Datos idpersona) {
-        this.idpersona = idpersona;
-    }
+	public void setIdpersona(Datos idpersona) {
+		this.idpersona = idpersona;
+	}
 
-    @Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
-        return hash;
-    }
+    
+    
 
-    @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Banco)) {
-            return false;
-        }
-        Banco other = (Banco) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
-            return false;
-        }
-        return true;
-    }
-
-    @Override
-    public String toString() {
-        return "javaapplication1.modelo.TarjetaDeCredito[ id=" + id + " ]";
-    }
+    
     
 }

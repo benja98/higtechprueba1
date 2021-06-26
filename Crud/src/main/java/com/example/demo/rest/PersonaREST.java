@@ -54,7 +54,7 @@ public class PersonaREST{
 			response = responseExceptions.createFailResponse(null, env.getProperty(AppConstans.ERROR_SERVICIOSAVE_COD), 
 																		env.getProperty(AppConstans.ERROR_INGRESAR_PERSONA));
 		}
-		 return clienteRest.getForObject("http//localhost:9001/api/persona/datos",ResponseEntity.class);
+		 return response;
 	}	
 	
 	@PostMapping(value = "/datos1")																					
@@ -64,7 +64,7 @@ public class PersonaREST{
 		try {
 			pservice = personaService.create(dto);
 			response = responseExceptions.createOkResponse(pservice, env.getProperty(AppConstans.EXITO_CODPERSONA_AGEGADA), 
-																		env.getProperty(AppConstans.EXITO_RESTPERSONA_AGEGADA));
+															env.getProperty(AppConstans.EXITO_RESTPERSONA_AGEGADA));
 		}catch (DatosNoEncontradosException e) {
 			response = responseExceptions.createFailResponse(null, e.getCod(), e.getMessage());
 		}catch (Exception e) {
@@ -72,7 +72,7 @@ public class PersonaREST{
 			response = responseExceptions.createFailResponse(null, env.getProperty(AppConstans.ERROR_SERVICIOSAVE_COD), 
 																env.getProperty(AppConstans.ERROR_INGRESAR_PERSONA));
 		}
-		 return response;
+		return response;
 	}
 	
 	

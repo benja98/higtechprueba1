@@ -42,14 +42,35 @@ public class Datos implements Serializable {
     private String apellido;
     @Column(name = "telefono")
     private String telefono;
-    @JoinColumn(name = "pais", referencedColumnName = "id")
+    
     @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "pais", referencedColumnName = "id") 
     private Pais pais;
 
+    
     public Datos() {
     }
 
-    public Datos(Integer id) {
+    
+    
+    
+    
+    
+    public Datos(Integer id, String nombre, String apellido, String telefono, Pais pais) {
+		super();
+		this.id = id;
+		this.nombre = nombre;
+		this.apellido = apellido;
+		this.telefono = telefono;
+		this.pais = pais;
+	}
+
+
+
+
+
+
+	public Datos(Integer id) {
         this.id = id;
     }
 
@@ -93,30 +114,7 @@ public class Datos implements Serializable {
         this.pais = pais;
     }
 
-    @Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Datos)) {
-            return false;
-        }
-        Datos other = (Datos) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
-            return false;
-        }
-        return true;
-    }
-
-    @Override
-    public String toString() {
-        return "javaapplication1.modelo.Datos[ id=" + id + " ]";
-    }
+     
     
 }
 

@@ -6,108 +6,138 @@ public class DatosDto implements Serializable{
 	
 	private static final long serialVersionUID = 1L;
 	
-	private Integer id;
+	private Integer idDatos;
 	private String nombre;
 	private String apellido;
 	private String telefono;
 	private Integer idPais;
+	
 	private Integer idBanco;
-	private Integer idPersona;
 	private String tipo_tarjeta;
 	private String saldo;
+	private Integer idPersona;
 	
-	public Integer getIdBanco() {
-		return idBanco;
-	}
 	
-	public DatosDto() {
+	public DatosDto(Integer idDatos, String nombre, String apellido, String telefono, Integer idPais, Integer idBanco,
+			String tipo_tarjeta, String saldo, Integer idPersona) {
 		super();
-	}
-
-	public DatosDto(Integer id, String nombre, String apellido, String telefono, Integer idPais, Integer idBanco,
-			Integer idPersona, String tipo_tarjeta, String monto) {
-		super();
-		this.id = id;
+		this.idDatos = idDatos;
 		this.nombre = nombre;
 		this.apellido = apellido;
 		this.telefono = telefono;
 		this.idPais = idPais;
 		this.idBanco = idBanco;
-		this.idPersona = idPersona;
 		this.tipo_tarjeta = tipo_tarjeta;
 		this.saldo = saldo;
-	}
-
-	public void setIdBanco(Integer idBanco) {
-		this.idBanco = idBanco;
-	}
-
-	public Integer getIdPersona() {
-		return idPersona;
-	}
-
-	public void setIdPersona(Integer idPersona) {
 		this.idPersona = idPersona;
 	}
 
-	public String getTipo_tarjeta() {
-		return tipo_tarjeta;
-	}
 
-	public void setTipo_tarjeta(String tipo_tarjeta) {
-		this.tipo_tarjeta = tipo_tarjeta;
-	}
-
-	public String getSaldo() {
-		return saldo;
-	}
-
-	public void setSaldo(String saldo) {
-		this.saldo = saldo;
-	}
-
-	public static long getSerialversionuid() {
-		return serialVersionUID;
+	public DatosDto() {
+		super();
 	}
 
 
-	public Integer getId() {
-		return id;
+	public Integer getIdDatos() {
+		return idDatos;
 	}
 
-	public void setId(Integer id) {
-		this.id = id;
+
+	public void setIdDatos(Integer idDatos) {
+		this.idDatos = idDatos;
 	}
+
 
 	public String getNombre() {
 		return nombre;
 	}
 
+
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
+
 
 	public String getApellido() {
 		return apellido;
 	}
 
+
 	public void setApellido(String apellido) {
 		this.apellido = apellido;
 	}
+
 
 	public String getTelefono() {
 		return telefono;
 	}
 
+
 	public void setTelefono(String telefono) {
 		this.telefono = telefono;
 	}
+
 
 	public Integer getIdPais() {
 		return idPais;
 	}
 
+
 	public void setIdPais(Integer idPais) {
 		this.idPais = idPais;
-	} 
+	}
+
+
+	public Integer getIdBanco() {
+		return idBanco;
+	}
+
+
+	public void setIdBanco(Integer idBanco) {
+		this.idBanco = idBanco;
+	}
+
+
+	public String getTipo_tarjeta() {
+		return tipo_tarjeta;
+	}
+
+
+	public void setTipo_tarjeta(String tipo_tarjeta) {
+		this.tipo_tarjeta = tipo_tarjeta;
+	}
+
+
+	public String getSaldo() {
+		return saldo;
+	}
+
+
+	public void setSaldo(String saldo) {
+		this.saldo = saldo;
+	}
+
+
+	public Integer getIdPersona() {
+		return idPersona;
+	}
+
+
+	public void setIdPersona(Integer idPersona) {
+		this.idPersona = idPersona;
+	}
+
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
+	
+	
+	
+	
+	 
+	
+	
+	
+	
 }

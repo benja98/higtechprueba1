@@ -8,7 +8,6 @@ import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Component;
 
 import com.example.demo.Model.Datos;
-import com.example.demo.dto.DatosDto;
 import com.example.demo.exceptions.DatosNoEncontradosException;
 import com.example.demo.repository.PersonaRepository;
 

@@ -15,6 +15,33 @@ public class PersonaResponse implements Serializable{
 	
 	private String nombrePais;
     private String codigoPais;
+ 
+	private Integer idPersona;
+	private String tipo_tarjeta;
+	private String saldo;
+	
+	
+	public Integer getIdPersona() {
+		return idPersona;
+	}
+	public void setIdPersona(Integer idPersona) {
+		this.idPersona = idPersona;
+	}
+	public String getTipo_tarjeta() {
+		return tipo_tarjeta;
+	}
+	public void setTipo_tarjeta(String tipo_tarjeta) {
+		this.tipo_tarjeta = tipo_tarjeta;
+	}
+	public String getSaldo() {
+		return saldo;
+	}
+	public void setSaldo(String saldo) {
+		this.saldo = saldo;
+	}
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
 	public Integer getId() {
 		return id;
 	}
