@@ -26,7 +26,9 @@ import javax.persistence.Table;
 //    , @NamedQuery(name = "TarjetaDeCredito.findBySaldo", query = "SELECT t FROM TarjetaDeCredito t WHERE t.saldo = :saldo")})
 
 public class Banco implements Serializable {
-    @Id
+   
+	private static final long serialVersionUID = 1L;
+	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "id")
@@ -82,11 +84,5 @@ public class Banco implements Serializable {
 
 	public void setIdpersona(Datos idpersona) {
 		this.idpersona = idpersona;
-	}
-
-    
-    
-
-    
-    
+	}  
 }

@@ -13,13 +13,13 @@ public class DatosDto implements Serializable{
 	private Integer idPais;
 	
 	private Integer idBanco;
-	private String tipo_tarjeta;
+	private String tipoTarjeta;
 	private String saldo;
 	private Integer idPersona;
 	
 	
 	public DatosDto(Integer idDatos, String nombre, String apellido, String telefono, Integer idPais, Integer idBanco,
-			String tipo_tarjeta, String saldo, Integer idPersona) {
+			String tipoTarjeta, String saldo, Integer idPersona) {
 		super();
 		this.idDatos = idDatos;
 		this.nombre = nombre;
@@ -27,7 +27,7 @@ public class DatosDto implements Serializable{
 		this.telefono = telefono;
 		this.idPais = idPais;
 		this.idBanco = idBanco;
-		this.tipo_tarjeta = tipo_tarjeta;
+		this.tipoTarjeta = tipoTarjeta;
 		this.saldo = saldo;
 		this.idPersona = idPersona;
 	}
@@ -98,13 +98,13 @@ public class DatosDto implements Serializable{
 	}
 
 
-	public String getTipo_tarjeta() {
-		return tipo_tarjeta;
+	public String getTipoTarjeta() {
+		return tipoTarjeta;
 	}
 
 
-	public void setTipo_tarjeta(String tipo_tarjeta) {
-		this.tipo_tarjeta = tipo_tarjeta;
+	public void setTipoTarjeta(String tipoTarjeta) {
+		this.tipoTarjeta = tipoTarjeta;
 	}
 
 
@@ -130,14 +130,5 @@ public class DatosDto implements Serializable{
 
 	public static long getSerialversionuid() {
 		return serialVersionUID;
-	}
-	
-	
-	
-	
-	 
-	
-	
-	
-	
+	}	
 }

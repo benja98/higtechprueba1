@@ -51,11 +51,6 @@ public class Datos implements Serializable {
     public Datos() {
     }
 
-    
-    
-    
-    
-    
     public Datos(Integer id, String nombre, String apellido, String telefono, Pais pais) {
 		super();
 		this.id = id;
@@ -64,11 +59,6 @@ public class Datos implements Serializable {
 		this.telefono = telefono;
 		this.pais = pais;
 	}
-
-
-
-
-
 
 	public Datos(Integer id) {
         this.id = id;
@@ -113,8 +103,5 @@ public class Datos implements Serializable {
     public void setPais(Pais pais) {
         this.pais = pais;
     }
-
-     
-    
 }
 

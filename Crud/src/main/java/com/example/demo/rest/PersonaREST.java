@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.client.RestTemplate;
 
 import com.example.demo.Model.Datos;
 import com.example.demo.dao.PersonaResponse;
@@ -36,8 +35,6 @@ public class PersonaREST{
 	private PersonaService personaService;	
 	@Autowired																					
 	ResponseEntityExceptions responseExceptions;
-	@Autowired
-	private RestTemplate clienteRest;
 	
 	@PostMapping(value = "/datos")																					
 	private ResponseEntity<?> guardar(@RequestBody Datos datos){

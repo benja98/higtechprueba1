@@ -17,7 +17,7 @@ public class PersonaResponse implements Serializable{
     private String codigoPais;
  
 	private Integer idPersona;
-	private String tipo_tarjeta;
+	private String tipoTarjeta;
 	private String saldo;
 	
 	
@@ -27,11 +27,11 @@ public class PersonaResponse implements Serializable{
 	public void setIdPersona(Integer idPersona) {
 		this.idPersona = idPersona;
 	}
-	public String getTipo_tarjeta() {
-		return tipo_tarjeta;
+	public String getTipoTarjeta() {
+		return tipoTarjeta;
 	}
-	public void setTipo_tarjeta(String tipo_tarjeta) {
-		this.tipo_tarjeta = tipo_tarjeta;
+	public void setTipoTarjeta(String tipoTarjeta) {
+		this.tipoTarjeta = tipoTarjeta;
 	}
 	public String getSaldo() {
 		return saldo;
